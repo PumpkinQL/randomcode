@@ -10,6 +10,14 @@ struct item
 	int item_cost;
 };
 
+struct npc
+{
+	std::string npc_name;
+	std::string npc_lines;
+	int npc_health;
+	int npc_damage;
+};
+
 struct locations
 {
 	std::string name;
@@ -17,6 +25,8 @@ struct locations
 	std::string requirement;
 	std::vector<std::string> directions;
 	std::vector<item> items;
+	int coins;
+	npc npcs;
 };
 
 locations records[4] =
@@ -41,7 +51,11 @@ locations records[4] =
 				"An instrument composed of a blade fixed into a handle, used for cutting or as a weapon",
 				6,
 				0,
-			}
+			},
+		},
+		0,
+		{
+		   "None",
 		}
 	},
 	{
@@ -64,12 +78,16 @@ locations records[4] =
 				0,
 				100,
 			}
+		},
+	    0,
+		{
+		   "None",
 		}
 	},
 	{
 		"Bedroom",
 		"A room for sleeping in",
-		"Key",
+		"Knife",
 		{
 		   "Bathroom",
 		   "Master Bedroom",
@@ -81,6 +99,13 @@ locations records[4] =
 				0,
 				5,
 			}
+		},
+	    0,
+		{
+			"Robber",
+			"Someone is trying to rob your house with a knife",
+			2,
+			0,
 		}
 	},
 	{
@@ -104,6 +129,10 @@ locations records[4] =
 				3,
 				5,
 			},
+		},
+		50,
+		{
+		   "None",
 		}
 	}
 };

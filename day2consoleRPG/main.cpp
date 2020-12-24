@@ -67,7 +67,7 @@ main_loop:
 					while (fight_or_flee)
 					{
 						std::string fight;
-						std::cin.clear();
+						std::cin.ignore();
 						std::getline(std::cin, fight);
 						if (fight == "fight")
 						{
@@ -75,8 +75,11 @@ main_loop:
 							{
 								if (inventory[j].item_attack_power >= records[i].npcs.npc_health)
 								{
-									printf("Robber defeated");
+									std::cout << records[i].npcs.npc_name << " has been defeated!";
 									records[i].npcs.npc_name = "None";
+									Sleep(4000);
+									clear_console();
+									std::cout << "You are at:" << records[i].name << std::endl;
 									fight_or_flee = false;
 								}
 								else
@@ -91,7 +94,7 @@ main_loop:
 						{
 							current_location = previous_location;
 							fight_or_flee = false;
-							clear_console;
+							clear_console();
 							goto main_loop;
 						}
 						else

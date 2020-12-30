@@ -1,6 +1,5 @@
 #pragma once
-
-extern struct item{};
+#include "rooms.h"
 
 void game_load();
 void previous_location_save();

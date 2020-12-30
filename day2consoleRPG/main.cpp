@@ -17,9 +17,11 @@ int get_user_input(int option)
 		// Checks if the option exists
 		if (temp > 0 && temp <= option)
 		{
-				user_input = temp;
-				user_dec = false;
+			user_input = temp;
+			user_dec = false;
 		}
+		else if (temp == option + 1)
+			return temp;
 		else
 			std::cout << "Option does not exist" << std::endl;
 	}
@@ -46,7 +48,7 @@ std::string game_save()
 	std::ifstream load_location;
 	load_location.open("saved_location.txt");
 	std::string current_location;
-	load_location >> current_location;
+	std::getline(load_location, current_location);
 	load_location.close();
 	return current_location;
 }
@@ -76,13 +78,14 @@ int main()
 	std::vector<item> inventory;
 	int gold_count = 20;
 	bool main_game = true;
+	int records_size = *(&records + 1) - records;
 main_loop:
 	while (main_game)
 	{
 		// Counter for options
 		int option = 0;
 		// Cycles through all the locations
-		for (int i = 0; i < sizeof(records); i++)
+		for (int i = 0; i < records_size; i++)
 			// Finds the location index
 			if (current_location == records[i].name)
 			{
@@ -175,6 +178,8 @@ main_loop:
 
 				// Prints gold count at the end
 				std::cout << "Gold Count: " << gold_count << std::endl;
+				std::cout << std::endl;
+				std::cout << option + 1 << " Save and Exit" << std::endl;
 
 				// User input
 user_dec:		int user_input = get_user_input(option);
@@ -189,7 +194,7 @@ user_dec:		int user_input = get_user_input(option);
 						std::string next_location = records[i].directions[user_input - 1];
 						int k;
 						// Finds the index of the location you are trying to get to
-						for (k = 0; k < sizeof(records); k++)
+						for (k = 0; k < records_size; k++)
 							if (next_location == records[k].name)
 								break;
 
@@ -218,6 +223,8 @@ user_dec:		int user_input = get_user_input(option);
 							goto user_dec;
 						}
 					}
+					else if (user_input == option + 1)
+						goto game_end;
 					// if the user is trying to pickup an item
 					else if (user_input >= records[i].directions.size())
 						if (records[i].items[item].item_name == "                                    [COLLECTED]")
@@ -239,6 +246,7 @@ user_dec:		int user_input = get_user_input(option);
 						}
 
 					goto clear_console;
+				 
 				}
 			}
 	clear_console:

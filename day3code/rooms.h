@@ -29,7 +29,7 @@ struct locations
 	npc npcs;
 };
 
-static locations records[4] =
+locations records[4] =
 {
 	{
 		"Kitchen",

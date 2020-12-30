@@ -13,12 +13,14 @@ void game_load()
 {
 	std::ifstream fs("saved_location.txt");
 	std::getline(fs, current_location);
+	fs.close();
 }
 
 void previous_location_save()
 {
 	std::ifstream fs("previous_location.txt");
 	std::getline(fs, previous_location);
+	fs.close();
 }
 
 std::vector<std::string> inventory_load()
@@ -28,14 +30,15 @@ std::vector<std::string> inventory_load()
 	std::vector<std::string> inventory;
 	while (fs >> temp)
 		inventory.push_back(temp);
-
+	fs.close();
 	return inventory;
 }
 
 void load_gold()
 {
-	std::ifstream fs("load_count.txt");
+	std::ifstream fs("load_gold.txt");
 	fs >> gold_count;
+	fs.close();
 }
 
 int current_location_index(std::string current_location)
@@ -155,6 +158,8 @@ bool fight(int i, std::vector<item> inventory)
 			return false;
 		}
 	}
+
+	return false;
 }
 
 bool check_location_requirement(int i, int user_input)

@@ -1,0 +1,4 @@
+Location Name
+Kitchen
+Inventory
+Null

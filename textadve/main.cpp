@@ -1,14 +1,22 @@
 #include <iostream>
 #include <vector>
+#include "rooms.h"
 
-int find_location_index();
 void load_game();
+void print_room_info();
+void get_user_input();
+
+std::string current_location;
+std::vector<std::string> inventory;
+Rooms game;
 
 int main()
 {
-    std::string current_location = "hello";
-    extern std::vector<std::string> inventory;
     load_game();
-    int i = find_location_index();
-    std::cin.get();
+    while (1)
+    {
+        print_room_info();
+        get_user_input();
+    }
+    //std::cin.get();
 }

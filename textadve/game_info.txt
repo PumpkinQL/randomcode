@@ -1,4 +1,3 @@
 Location Name
-Kitchen
+Garden
 Inventory
-Null

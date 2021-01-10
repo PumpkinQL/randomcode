@@ -3,12 +3,19 @@
 #include "rooms.h"
 #include <fstream>
 #include <unordered_map>
+#include <cctype>
 
 #define LOCATION game.location[current_location]
 
 extern std::string current_location;
 extern std::vector<std::string> inventory;
 extern Rooms game;
+
+void clear_console()
+{
+    if (system("CLS"))
+        system("clear");
+}
 
 void save_game()
 {
@@ -20,7 +27,7 @@ void save_game()
     {
         fs << "Location Name" << std::endl;
         fs << current_location << std::endl;
-        fs << "Invetory" << std::endl;
+        fs << "Inventory" << std::endl;
         for (size_t i = 0; i < inventory.size(); i++)
             fs << inventory[i] << std::endl;
 
@@ -28,8 +35,23 @@ void save_game()
     }
 }
 
+bool pickup()
+{
+    return false;
+}
+
+bool use()
+{
+    return false;
+}
+
 bool changeRoom(std::string room)
 {
+    // Change input to correct type
+    room[0] = toupper(room[0]);
+    for (size_t i = 1; i < room.size(); ++i)
+        room[i] = tolower(room[i]);
+    //
     if (game.location.find(room) != game.location.end()) {
         if (LOCATION.directionMap.find(room) != LOCATION.directionMap.end())
         {
@@ -56,6 +78,7 @@ void get_user_input()
         std::string user_input;
         std::string temp = "";
         std::getline(std::cin, user_input);
+        std::cout << std::endl;
         for (size_t i = 0; i < user_input.size(); ++i)
         {
             if (user_input[i] != ' ')

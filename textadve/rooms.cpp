@@ -3,6 +3,9 @@
 #include "rooms.h"
 #include <unordered_map>
 
+extern std::string current_location;
+#define LOCATION location[current_location]
+
 //Name
 //Description
 //Directions <vector>
@@ -46,15 +49,15 @@ void Rooms::addRequirement(std::string room, std::string requirement) {
 	location[room].requirement = requirement;
 }
 
-std::vector<Rooms::Item> Rooms::getItem(std::string room) {
+std::vector<Rooms::Item> Rooms::getItems(std::string room) {
 	return location[room].items;
 }
 
-std::vector<Rooms::Weapon> Rooms::getWeapon(std::string room) {
+std::vector<Rooms::Weapon> Rooms::getWeapons(std::string room) {
 	return location[room].weapons;
 }
 
-std::vector<Rooms::Npc> Rooms::getNpc(std::string room) {
+std::vector<Rooms::Npc> Rooms::getNpcs(std::string room) {
 	return location[room].npc;
 }
 
@@ -71,6 +74,16 @@ std::string Rooms::getDescription(std::string room) {
 }
 
 
+void Rooms::setTakenItem(std::string item) {
+	LOCATION.items[LOCATION.itemMap[item]].taken = true;
+	//else std::cout << "Congratualations. You have thoroughly broken the game.\nPlease report this bug we beg you.\n";
+}
+
+void Rooms::setTakenWeapon(std::string item) {
+	LOCATION.weapons[LOCATION.weaponMap[item]].taken = true;
+}
+
+
 
 
 
@@ -82,12 +95,12 @@ Rooms::Rooms()
 	{
 		{
 			/* Taken     */	false,
-			/* Name      */ "Remote Control",
+			/* Name      */ "Remote control",
 			/* Item Cost */ 0,
 		},
 		{
 			/* Taken     */ false,
-			/* Name      */ "Chocolate Bar",
+			/* Name      */ "Chocolate bar",
 			/* Item Cost */ 5,
 		}
 	};
@@ -128,12 +141,12 @@ Rooms::Rooms()
 	{
 		{
 			/* Taken     */	false,
-			/* Name      */ "Remote Control",
+			/* Name      */ "Remote control",
 			/* Item Cost */ 0,
 		},
 		{
 			/* Taken     */ false,
-			/* Name      */ "Chocolate Bar",
+			/* Name      */ "Chocolate bar",
 			/* Item Cost */ 5,
 		}
 	};
@@ -162,6 +175,7 @@ Rooms::Rooms()
 	addWeapon(living_room, livingroom_weapons);
 	addNpc(living_room, livingroom_npc);
 	addDirections(living_room, garden);
+	addDirections(living_room, bedroom);
 	addRequirement(living_room, "None");
 
 	//Adding Garden
@@ -195,7 +209,8 @@ Rooms::Rooms()
 	addItem(garden, garden_items);
 	addWeapon(garden, garden_weapons);
 	addNpc(garden, garden_npc);
-	addDirections(garden, bedroom);
+	addDirections(garden, kitchen);
+	//addDirections(garden, bedroom);
 	addRequirement(garden, "None");
 
 	//Adding Bedroom
@@ -223,8 +238,6 @@ Rooms::Rooms()
 		/* Name */ "Mother",
 		/* Cost */ false,
 	};
-
-	location[garden].description = "ADD LATER";
 
 	addItem(bedroom, bedroom_items);
 	addWeapon(bedroom, bedroom_weapons);

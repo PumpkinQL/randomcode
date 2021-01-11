@@ -1,3 +1,6 @@
+#ifndef ROOMS_H
+#define ROOMS_H
+
 #include <iostream>
 #include <string>
 #include <unordered_map>
@@ -6,7 +9,7 @@
 
 class Rooms {
 private:
-	std::string living_room = "Living Room";
+	std::string living_room = "Living room";
 	std::string garden = "Garden";
 	std::string bedroom = "Bedroom";
 	std::string kitchen = "Kitchen";
@@ -17,7 +20,7 @@ public:
 	struct Weapon
 	{
 		bool taken;
-		const char* name;
+		std::string name;
 		unsigned int hp;
 		unsigned int damage;
 		unsigned int cost;
@@ -27,14 +30,14 @@ public:
 	struct Item
 	{
 		bool taken;
-		const char* name;
+		std::string name;
 		unsigned int cost;
 	};
 
 	struct Npc
 	{
 		bool exist;
-		const char* name;
+		std::string name;
 		bool good;
 	};
 
@@ -64,10 +67,16 @@ public:
 	void addNpc(std::string room, Npc npc);
 	void addDirections(std::string room, std::string directions);
 	void addRequirement(std::string room, std::string requirement);
-	std::vector<Item> getItem(std::string room);
-	std::vector<Weapon> getWeapon(std::string room);
-	std::vector<Npc> getNpc(std::string room);
+	std::vector<Item> getItems(std::string room);
+	std::vector<Weapon> getWeapons(std::string room);
+	std::vector<Npc> getNpcs(std::string room);
 	std::string getRequirement(std::string room);
 	std::string getName(std::string room);
 	std::string getDescription(std::string room);
+
+	void setTakenItem(std::string item);
+	void setTakenWeapon(std::string item);
 };
+
+
+#endif

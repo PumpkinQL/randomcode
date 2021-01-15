@@ -6,6 +6,8 @@
 extern std::string current_location;
 #define LOCATION location[current_location]
 
+extern int kitchenFunc();
+
 //Name
 //Description
 //Directions <vector>
@@ -35,9 +37,12 @@ void Rooms::addWeapon(std::string room, Weapon weapon) {
 	location[room].weapons.push_back(weapon);
 }
 
-void Rooms::addNpc(std::string room, Npc npc) {
-	location[room].itemMap[npc.name] = location[room].npc.size();
-	location[room].npc.push_back(npc);
+void Rooms::addNpc(std::string room, Bad_Npc npc) {
+	location[room].badNpc.push_back(npc);
+}
+
+void Rooms::addNpc(std::string room, Good_Npc npc) {
+	location[room].goodNpc.push_back(npc);
 }
 
 void Rooms::addDirections(std::string room, std::string direction) {
@@ -57,9 +62,9 @@ std::vector<Rooms::Weapon> Rooms::getWeapons(std::string room) {
 	return location[room].weapons;
 }
 
-std::vector<Rooms::Npc> Rooms::getNpcs(std::string room) {
-	return location[room].npc;
-}
+//std::vector<Rooms::Npc> Rooms::getNpcs(std::string room) {
+//	return location[room].npc;
+//}
 
 std::string Rooms::getRequirement(std::string room) {
 	return location[room].requirement;
@@ -94,39 +99,55 @@ Rooms::Rooms()
 	Item kitchen_items[2] =
 	{
 		{
-			/* Taken     */	false,
-			/* Name      */ "Remote control",
-			/* Item Cost */ 0,
+			/* Taken       */	false,
+			/* Name        */ "Bottle",
+			/* Description */ "Contains some dubious liquid",
+			/* Item Cost   */ 0,
 		},
 		{
-			/* Taken     */ false,
-			/* Name      */ "Chocolate bar",
-			/* Item Cost */ 5,
+			/* Taken       */	false,
+			/* Name        */ "Pan",
+			/* Description */ "Quite rusty",
+			/* Item Cost   */ 0,
 		}
 	};
 
 	Weapon kitchen_weapons =
 	{
-		/* Taken  */ false,
-		/* Name   */ "Knife",
-		/* HP     */ 5,
-		/* Damage */ 10,
-		/* Cost * */ 25,
-		/* Range  */ false,
+		/* Taken       */ false,
+		/* Name        */ "Knife",
+		/* Description */ "A sharp edged object used to cut food",
+		/* HP          */ 5,
+		/* Damage      */ 10,
+		/* Cost *      */ 25,
+		/* Range       */ false,
 
 	};
 
-	Npc kitchen_npc =
+	Bad_Npc kitchen_npc =
 	{
-		/* NPC  */ false,
-		/* Name */ "Mother",
-		/* Cost */ false,
+		/* NPC         */ true,
+		/* Name        */ "Mother",
+		/* Description */ "A fierce warrior who will put you to bed",
+		/* Task		   */ "Will kill you",
+		/* Health      */ 25,
+		/* Gender      */ "She",
+		/* Weapon      */
+		{
+			false,
+			"Sword",
+			"Sharp Object",
+			0,
+			20,
+			0,
+			false,
+		}
 	};
 
 
 	//Adding to Kitchen
 	location[kitchen].description = "The main functions of a kitchen are to store, prepare and cook food.";
-
+	location[kitchen].function = &kitchenFunc;
 	addItem(kitchen, kitchen_items[0]);
 	addItem(kitchen, kitchen_items[1]);
 	addWeapon(kitchen, kitchen_weapons);
@@ -140,40 +161,37 @@ Rooms::Rooms()
 	Item livingroom_items[2] =
 	{
 		{
-			/* Taken     */	false,
-			/* Name      */ "Remote control",
-			/* Item Cost */ 0,
+			/* Taken       */ false,
+			/* Name        */ "Apple",
+			/* Description */ "Some magic item from a magical world",
+			/* Item Cost   */ 0,
 		},
 		{
-			/* Taken     */ false,
-			/* Name      */ "Chocolate bar",
-			/* Item Cost */ 5,
+			/* Taken       */ false,
+			/* Name        */ "Remote control",
+			/* Description */ "Some magic item from a magical world",
+			/* Item Cost   */ 0,
 		}
 	};
 
 	Weapon livingroom_weapons =
 	{
-		/* Taken  */ false,
-		/* Name   */ "Knife",
-		/* HP     */ 5,
-		/* Damage */ 10,
-		/* Cost * */ 25,
-		/* Range  */ false,
+		/* Taken       */ false,
+		/* Name        */ "Gun",
+		/* Description */ "A sharp edged object used to cut food",
+		/* HP          */ 5,
+		/* Damage      */ 10,
+		/* Cost *      */ 25,
+		/* Range       */ false,
 
 	};
 
-	Npc livingroom_npc =
-	{
-		/* NPC  */ false,
-		/* Name */ "Mother",
-		/* Cost */ false,
-	};
 	//location[living_room].name = "Living Room";
-	location[living_room].description = "The main functions of a kitchen are to store, prepare and cook food.";
+	location[living_room].description = "An area for rest and entertainment";
 	addItem(living_room, livingroom_items[0]);
 	addItem(living_room, livingroom_items[1]);
 	addWeapon(living_room, livingroom_weapons);
-	addNpc(living_room, livingroom_npc);
+	//addNpc(living_room, livingroom_npc);
 	addDirections(living_room, garden);
 	addDirections(living_room, bedroom);
 	addRequirement(living_room, "None");
@@ -182,33 +200,39 @@ Rooms::Rooms()
 	createRoom(garden);
 	Item garden_items =
 	{
-		/* Taken     */	false,
-		/* Name      */ "Trowel",
-		/* Item Cost */ 0,
+		/* Taken       */ false,
+		/* Name        */ "Gnome",
+		/* Description */ "Some magic item from a magical world",
+		/* Item Cost   */ 0,
 	};
 
 	Weapon garden_weapons =
 	{
-		/* Taken  */ false,
-		/* Name   */ "Fork",
-		/* HP     */ 10,
-		/* Damage */ 5,
-		/* Cost * */ 30,
-		/* Range  */ false,
+		/* Taken       */ false,
+		/* Name        */ "Shovel",
+		/* Description */ "A sharp edged object used to cut food",
+		/* HP          */ 5,
+		/* Damage      */ 10,
+		/* Cost *      */ 25,
+		/* Range       */ false,
 	};
 
-	Npc garden_npc =
-	{
-		/* NPC  */ false,
-		/* Name */ "Mother",
-		/* Cost */ false,
-	};
+	//Npc garden_npc =
+	//{
+	//	/* NPC         */ false,
+	//	/* Name        */ "Mother",
+	//	/* Description */ "A fierce warrior who will put you to bed",
+	//	/* Task		   */ "Kill the wild travel",
+	//	/* Health      */ 25,
+	//	/* Damage      */ 10,
+	//	/* Cost        */ false,
+	//};
 
 	location[garden].description = "ADD LATER";
 
 	addItem(garden, garden_items);
 	addWeapon(garden, garden_weapons);
-	addNpc(garden, garden_npc);
+	//addNpc(garden, garden_npc);
 	addDirections(garden, kitchen);
 	//addDirections(garden, bedroom);
 	addRequirement(garden, "None");
@@ -217,31 +241,37 @@ Rooms::Rooms()
 	createRoom(bedroom);
 	Item bedroom_items =
 	{
-		/* Taken     */	false,
-		/* Name      */ "Trowel",
-		/* Item Cost */ 0,
+		/* Taken       */ false,
+		/* Name        */ "Keys",
+		/* Description */ "Some magic item from a magical world",
+		/* Item Cost   */ 0,
 	};
 
 	Weapon bedroom_weapons =
 	{
-		/* Taken  */ false,
-		/* Name   */ "Fork",
-		/* HP     */ 10,
-		/* Damage */ 5,
-		/* Cost * */ 30,
-		/* Range  */ false,
+		/* Taken       */ false,
+		/* Name        */ "Kitchen knife",
+		/* Description */ "A sharp edged object used to cut food",
+		/* HP          */ 5,
+		/* Damage      */ 10,
+		/* Cost *      */ 25,
+		/* Range       */ false,
 	};
 
-	Npc bedroom_npc =
-	{
-		/* NPC  */ false,
-		/* Name */ "Mother",
-		/* Cost */ false,
-	};
+	//Npc bedroom_npc =
+	//{
+	//	/* NPC         */ false,
+	//	/* Name        */ "Mother",
+	//	/* Description */ "A fierce warrior who will put you to bed",
+	//	/* Task		   */ "Kill the wild travel",
+	//	/* Health      */ 25,
+	//	/* Damage      */ 10,
+	//	/* Cost        */ false,
+	//};
 
 	addItem(bedroom, bedroom_items);
 	addWeapon(bedroom, bedroom_weapons);
-	addNpc(bedroom, bedroom_npc);
+	//addNpc(bedroom, bedroom_npc);
 	addDirections(bedroom, living_room);
 	addRequirement(bedroom, "None");
 

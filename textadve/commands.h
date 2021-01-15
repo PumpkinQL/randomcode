@@ -16,6 +16,9 @@ public:
 		{"credits", 5},
 		{"inventory", 6},
 		{"map", 7},
-		{"look", 8}
+		{"interact", 8},
+		{"inspect", 9},
+		{"attack", 10},
+		{"read", 11},
 	};
 };

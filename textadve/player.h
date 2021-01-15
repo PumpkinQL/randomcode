@@ -5,7 +5,7 @@
 #include <unordered_map>
 #include "rooms.h"
 
-class Player {
+class Player{
 public:
 
 	std::vector<Rooms::Item> items;

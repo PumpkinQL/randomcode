@@ -21,6 +21,7 @@ public:
 	{
 		bool taken;
 		std::string name;
+		std::string item_description;
 		unsigned int hp;
 		unsigned int damage;
 		unsigned int cost;
@@ -31,14 +32,29 @@ public:
 	{
 		bool taken;
 		std::string name;
+		std::string item_description;
 		unsigned int cost;
 	};
 
-	struct Npc
+	struct Good_Npc
 	{
 		bool exist;
-		std::string name;
-		bool good;
+		std::string npc_name;
+		std::string npc_description;
+		std::string npc_task;
+		int npc_health;
+		std::string gender;
+	};
+
+	struct Bad_Npc
+	{
+		bool exist;
+		std::string npc_name;
+		std::string npc_description;
+		std::string npc_task;
+		int npc_health;
+		std::string gender;
+		Weapon weapon;
 	};
 
 	struct Location
@@ -46,30 +62,32 @@ public:
 		std::string name;
 		std::string description;
 		std::vector<std::string> directions;
-		//std::unordered_map<const char*, Item> items;
-		//std::unordered_map<const char*, Weapon> weapons;
-		//std::unordered_map<const char*, Npc> npc;
 		std::unordered_map<std::string, int> itemMap;
 		std::unordered_map<std::string, int> weaponMap;
-		std::unordered_map<std::string, int> npcMap;
+		//std::unordered_map<std::string, int> npcMap;
 		std::unordered_map<std::string, int> directionMap;
 		std::vector<Item> items;
 		std::vector<Weapon> weapons;
-		std::vector<Npc> npc;
+		std::vector<Bad_Npc> badNpc;
+		std::vector<Good_Npc> goodNpc;
 		std::string requirement;
+		int time = 0;
+		int (*function)();
 	};
+
 
 	std::string currentLocation;
 	std::unordered_map<std::string, Location> location;
 	void createRoom(std::string name);
 	void addItem(std::string room, Item item); 
 	void addWeapon(std::string room, Weapon weapon);
-	void addNpc(std::string room, Npc npc);
+	void addNpc(std::string room, Good_Npc npc);
+	void addNpc(std::string room, Bad_Npc npc);
 	void addDirections(std::string room, std::string directions);
 	void addRequirement(std::string room, std::string requirement);
 	std::vector<Item> getItems(std::string room);
 	std::vector<Weapon> getWeapons(std::string room);
-	std::vector<Npc> getNpcs(std::string room);
+	//std::vector<Npc> getNpcs(std::string room);
 	std::string getRequirement(std::string room);
 	std::string getName(std::string room);
 	std::string getDescription(std::string room);

@@ -32,4 +32,4 @@ int main()
 // Use items
 // Coins
 // Xp system
-// NPC interactions
+// NPC interactions // Finish it off

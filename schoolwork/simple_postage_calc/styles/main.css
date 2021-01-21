@@ -1,0 +1,123 @@
+*
+{
+    padding: 0;
+    margin: 0;
+}
+
+.calculator
+{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: darkgrey;
+    overflow: hidden;
+}
+
+.card
+{
+    display: grid;
+    grid-template-columns: 500px;
+    grid-template-rows: 210px 210px 80px;
+    grid-template-areas: "image" "text" "stats";
+
+    font-family:  roboto;
+    border-radius:  18px;
+    background: white;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.9);
+    text-align: center;
+    transition: transform .5s;
+}
+
+.card:hover
+{
+    transform: scale(1.2);
+}
+
+.image
+{
+    grid-area: image;
+    background: url(https://us.123rf.com/450wm/davecooil/davecooil1911/davecooil191100007/134467073-young-blonde-girl-in-blue-ear-muffs-posting-her-letter-to-santa-traditional-british-red-post-box-par.jpg?ver=6);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    background-size: cover;
+}
+
+.text
+{
+    grid-area: text;
+    margin: 25px;
+}
+
+.input
+{
+    margin-top: 25px;
+    text-align: left;
+}
+
+.footer
+{
+    font-size: x-small;
+    margin-top: 60px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background-color: maroon;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.missing
+{
+    color: red;
+}
+
+input, select
+{
+    font-family: Arial, Helvetica, sans-serif;
+    float: right;
+    border-radius: 10px;
+}
+
+.selectors
+{
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: rgb(34, 167, 207);
+    margin-top: 5px;
+    margin-bottom: 5px;
+    transition: background-color .4s;
+}
+
+.postingto, .weight, .express
+{
+    margin: 10px;
+}
+
+.submit 
+{
+    height: 30px;
+    border-radius: 5px;
+    background-color: rgb(37, 161, 37);
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.selectors:hover
+{
+    background-color: rgb(47, 185, 228);
+}
+
+.submit:hover
+{
+    background-color: rgb(64, 194, 64);
+}
+
+.submit:active
+{
+    background-color: rgb(84, 170, 84);
+}

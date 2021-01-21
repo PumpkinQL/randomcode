@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel=stylesheet href=styles/main.css>
+    <title>Postage Calculator</title>
+</head>
+<body>
+    <div class="calculator">
+        <div class=card>
+            <div class=image>
+
+            </div>
+            <div class=text>
+                <span class=title>Post</span> <span class=title style="font-weight: bold;">Online</span>
+                <h2>Postage calculator</h2>
+                <div class=input>
+                    <div class=selectors>
+                        <div class=weight>
+                            <a>Weight</a>
+                            <input type=text id=weight>
+                            <a id=missingtext class=missing></a><br>
+                         </div>
+                         <div class=express>
+                            <a>Express delivery</a>
+                            <input type="checkbox" id=express><br>
+                        </div>
+                        <div class=postingto>
+                            <a>Posting to</a>
+                            <select id=country name=country>
+                                <option id=uk value="1">United Kingdom - 6/KG</option>
+                                <option id=us value="2">United States - 7/KG</option>
+                                <option id=fr value="3">France - 8/KG</option>
+                                <option id=ge value="4">Germany - 9/KG</option>
+                                <option id=ru value="5">Russia - 10/KG</option>
+                                <option id=cn value="6">China - 11/KG</option>
+                                <option id=ur value="7">Ukraine - 12/KG</option>
+                                <option id=nd value="8">Netherlands - 13/KG</option>
+                                <option id=sk value="9">South Korea - 14/KG</option>
+                            </select><br>
+                        </div>
+                    </div>
+                <div class=submit onclick="calculate()">
+                    <a>Calculate</a>
+                </div>
+                </div>
+                <span id=cost class=cost></span>
+            </div>
+            <div class="footer">
+                <a>Online Postage Calculator &copy</a>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    function calculate()
+    {
+        
+        var weight = document.getElementById("weight").value;
+        var country = document.getElementById("country").value;
+        if(isNaN(weight) || parseInt(weight) < 0 || weight == "")
+        {
+                document.getElementById("missingtext").innerHTML = "Incorrect input";
+                return false;
+        }
+        else document.getElementById("missingtext").innerHTML = "";
+
+        var answer;
+        switch(parseInt(country))
+        {
+            case 1:
+                answer = 6 * weight;
+                break;
+            case 2:
+                answer = 7 * weight;
+                break;
+            case 3:
+                answer = 8 * weight;
+                break;
+            case 4:
+                answer = 9 * weight;
+                break;
+            case 5:
+                answer = 10 * weight;
+                break;
+            case 6:
+                answer = 11 * weight;
+                break;
+            case 7:
+                answer = 12 * weight;
+                break;
+            case 8:
+                answer = 13 * weight;
+                break;
+            case 9:
+                answer = 14 * weight;
+                break;
+        }
+        var answer;
+        if(document.getElementById("express").checked)
+             answer += 10;
+        
+        document.getElementById("cost").innerHTML = "$" + answer;
+
+    }
+</script>
+</html>
